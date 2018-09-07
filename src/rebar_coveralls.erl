@@ -69,10 +69,14 @@ coveralls(Conf, Task) ->
 
 do_coveralls(ConvertAndSend, Get, GetLocal, MaybeSkip, Task) ->
   File         = GetLocal(coveralls_coverdata, undef),
+  io:format("File: ~p", [File]),
   ServiceName  = GetLocal(coveralls_service_name, undef),
+  io:format("ServiceName: ~p", [ServiceName]),
   ServiceJobId = GetLocal(coveralls_service_job_id, undef),
+  io:format("ServiceJobId: ~p", [ServiceJobId]),
   F            = fun(X) -> X =:= undef orelse X =:= false end,
   CoverExport  = Get(cover_export_enabled, false),
+  io:format("CoverExport: ~p", [CoverExport]),
   case lists:any(F, [File, ServiceName, ServiceJobId, CoverExport]) of
     true  ->
       throw({error,
