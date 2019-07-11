@@ -163,7 +163,9 @@ module_info_compile(Mod) ->
 -endif.
 
 read_file(#s{file_reader=_F}, "") -> {ok, <<"">>};
-read_file(#s{file_reader=F}, SrcFile) -> F(SrcFile).
+read_file(#s{file_reader=F}, SrcFile) ->
+    io:format("Reading file ~p~n", [SrcFile]),
+    F(SrcFile).
 
 start_wrapper(Funs) ->
   fun() ->
